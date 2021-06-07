@@ -1,4 +1,6 @@
 import RPi.GPIO as GPIO
+import urllib
+def sendSMS(uname, pword, numbers, sender, message):
 import time
 GPIO.setmode(GPIO.BCM)
 GPIO_PIR = 7 
@@ -21,8 +23,9 @@ try:
  
     Current_State = GPIO.input(GPIO_PIR)
  
-    if Current_State==1 and Previous_State==0:
-      print "  Motion detected!"
+     if Current_State==1 and Previous_State==0:
+      print " Motion detected!"
+      sendSMS("jkf@deakin.edu.au", "missingdeliveries", "0425127744", "0425127744", "Your delivery is here.")
       Previous_State=1
     elif Current_State==0 and Previous_State==1:
       print "  Ready"
@@ -33,9 +36,3 @@ try:
 except KeyboardInterrupt:
   print "  Quit"
   GPIO.cleanup()
-  
-  import urllib
-def sendSMS(uname, pword, numbers, sender, message):
- if Current_State==1 and Previous_State==0:
- print " Motion detected!"
- sendSMS("jkf@deakin.edu.au", "missingdeliveries", "0425127744", "0425127744", "Your delivery is here.")
